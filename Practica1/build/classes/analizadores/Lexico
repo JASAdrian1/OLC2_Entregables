@@ -1,0 +1,49 @@
+/*--------------------------------------------------
+ ------------  1ra Area: Codigo de Usuario ---------
+ ---------------------------------------------------*/
+
+//------> Paquetes,importaciones
+package analizadores;
+import java_cup.runtime.*;
+
+/*----------------------------------------------------------
+  ------------  2da Area: Opciones y Declaraciones ---------
+  ----------------------------------------------------------*/
+%% 
+%class Lexico
+%public 
+%line 
+%char 
+%cup 
+%unicode
+%ignorecase
+
+%init{ 
+    yyline = 1; 
+    yychar = 1; 
+%init} 
+
+cadena              = [a-zA-ZñÑ]+
+
+
+
+%%
+
+
+
+","         {return new Symbol(sym.coma, yyline, yychar, yytext()); }
+"0"         {return new Symbol(sym.cero, yyline, yychar, yytext()); }
+"1"         {return new Symbol(sym.uno, yyline, yychar, yytext()); }
+
+
+
+{cadena}    {return new Symbol(sym.cadena, yyline, yychar, yytext()); }
+
+
+[ \t\r\n\f]             {/* Espacios en blanco, se ignoran */}
+
+
+.           {System.out.println("Error Lexico " + yytext() + "Linea: " + yyline + "Columna: " + yychar); }
+
+
+

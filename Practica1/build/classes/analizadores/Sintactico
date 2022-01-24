@@ -1,0 +1,61 @@
+/*--------------- 1ra Area: Codigo de Usuario -----------------------*/
+//-------> importaciones, paquetes
+package analizadores;
+import java_cup.runtime.Symbol;
+
+//------> Codigo para el parser,variables, metodos
+parser code{:
+        String p_inicial = "";
+        int cCeros = 0;
+        int cUnos = 0;
+        
+
+        public void syntax_error(Symbol s)
+        {
+            System.err.println("Error en la Linea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "+s.value + " no reconocido. Se ha recuperado del error." );
+        }
+
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+            System.err.println("Error en la Linea " + (s.right+1)+ " Columna "+(s.left+1)+". Identificador " +s.value + " no reconocido.");
+        }
+        
+:}
+
+/*--------------- 2da Area: Declaraciones -----------------------*/
+
+//------> declaracion de terminales 
+terminal String cadena, coma, cero, uno;
+
+//------> declaracion de no terminales
+non terminal  S,  D, B, NUM;
+
+
+//------> precedencia
+
+
+
+start with S;
+
+/*--------------- 3ra Area: Reglas Semanticas -----------------------*/
+
+S ::=  D          {: System.out.print(p_inicial); :}
+    |  B          {: System.out.print("La cantidad de ceros es: "+ cCeros+" y " );
+                  System.out.println("la cantidad de unos es: "+cUnos); :}
+       ;
+
+D ::= D:a coma:b cadena:c      {: System.out.print(c+","); :}
+     | cadena:a             {: System.out.print("Resultado final: ");
+                                p_inicial = a; :}
+     ;
+
+
+B ::= B NUM            
+     | NUM            
+     ;
+
+NUM ::= cero        {: cCeros += 1; :}
+      | uno         {: cUnos +=1; :}
+      ;
+
+
