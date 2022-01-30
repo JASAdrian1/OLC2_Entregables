@@ -30,6 +30,7 @@ public class Practica2 {
             System.out.println("Error fatal en compilación de entrada.");
             System.out.println("Causa: "+e.getCause());
         }
+        sc.nextLine();
     }
     
 }

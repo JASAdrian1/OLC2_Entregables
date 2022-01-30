@@ -36,7 +36,7 @@ start with S;
 
 /*--------------- 3ra Area: Reglas Semanticas -----------------------*/
 
-S ::=  X:a                {: System.out.println(a.val); :}      
+S ::=  X:a                {: System.out.println("Salida: "+a.val); :}      
        ;
 
 X ::= L:l1 punto L:l2       {:
